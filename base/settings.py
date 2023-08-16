@@ -14,7 +14,7 @@ WSGI_APPLICATION = 'base.wsgi.application'
 #endregion DEPLOYMENT SETTINGS
 
 INSTALLED_APPS = [
-    'jazzmin',
+    # 'jazzmin',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
