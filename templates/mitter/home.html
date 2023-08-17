@@ -2,15 +2,29 @@
 
 {% block content %}
 
-    <h1 class="mb-5">Don't tweet X'ee</h1>
+<div class="container text-center">
+    <div class="row">
+        <div class="col-8">
+                <h1 class="mb-5">Don't tweet X'ee</h1>
 
-    {% for meep in meeps %}
-    <div class="alert alert-dark" role="alert">
-        {{meep.body}}
-        <hr>
-        <strong>{{meep.created_at|timesince}}&nbsp;ago</strong>
+                {% for meep in meeps %}
+                <div class="alert alert-dark" role="alert">
+                    {{meep.body}}
+                    <hr>
+                    <strong>{{meep.created_at|timesince}}&nbsp;ago</strong>
+                </div>
+                <br><br>
+                {% endfor %}
+        </div>
+        <div class="col-4">
+            <br><br><br>
+            <form method="POST">
+                {% csrf_token %}
+
+                <button type="submit" class="btn btn-primary">Submit</button>
+            </form>
+        </div>
+
     </div>
-
-    <br><br>
-    {% endfor %}
+</div>
 {% endblock content %}
