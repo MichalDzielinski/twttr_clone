@@ -7,7 +7,7 @@ from django.dispatch import receiver
 class Meep(models.Model):
     user = models.ForeignKey(User, related_name='meeps', on_delete=models.DO_NOTHING)
     body = models.CharField(max_length=200)
-    created_at = models.DateField(auto_now_add=True)
+    created_at = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
         return(
