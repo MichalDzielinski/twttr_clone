@@ -3,6 +3,7 @@ from .models import Profile, Meep
 from django.contrib import messages
 from .forms import MeepForm
 from django.contrib import messages
+from django.contrib.auth import authenticate, login, logout
 
 def home(request):
     if request.user.is_authenticated:
@@ -21,7 +22,6 @@ def home(request):
         meeps = Meep.objects.all().order_by('-created_at')
         context = {'meeps': meeps}
         return render(request, 'mitter/home.html', context)
-
 
 def profile_list(request):
     if request.user.is_authenticated:
@@ -53,6 +53,26 @@ def profile(request, pk):
         messages.success(request, ('You have to be logged in to see this page'))
         return redirect('home')
 
+def login_user(request):
+    if request.method == 'POST':
+        username=request.POST['username']
+        password=request.POST['password']
+        user = authenticate(request, username=username, password=password)
+        if user is not None:
+            login(request,  user)
+            messages.success(request, ('You have been logged in!'))
+            return redirect('home')
+        else:
+            messages.success(request, ('There was some error during your login'))
+            return redirect('login')
+    else:
+        return render(request, 'mitter/login.html')
+
+
+def logout_user(request):
+    logout(request)
+    messages.success(request, ('You have been logged out!'))
+    return redirect('home')
 
 
 
