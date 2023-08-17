@@ -2,5 +2,15 @@
 
 {% block content %}
 
-    <h1>Don't tweet X'ee</h1>
+    <h1 class="mb-5">Don't tweet X'ee</h1>
+
+    {% for meep in meeps %}
+    <div class="alert alert-dark" role="alert">
+        {{meep.body}}
+        <hr>
+        <strong>{{meep.created_at|timesince}}&nbsp;ago</strong>
+    </div>
+
+    <br><br>
+    {% endfor %}
 {% endblock content %}

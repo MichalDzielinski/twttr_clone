@@ -9,6 +9,31 @@
         <div class="row">
             <div class="col-8">
                 <h1>{{profile.user.username}}'s Profile</h1>
+                <br><br>
+                {% if meeps %}
+                {% for meep in meeps %}
+                    <div class="alert alert-dark" role="alert">
+                        {{meep.body}}
+                        <hr>
+                        <strong>{{meep.created_at|timesince}}&nbsp;ago</strong>
+                    </div>
+
+                    <br><br>
+                {% endfor %}
+
+                {% else %}
+
+                <h2 style="color: pink">
+                Unfortunatelly there are no MEEPS yet!
+
+                </h2>
+
+                {% endif%}
+
+
+
+
+
             </div>
             <div class="col-4">
 
@@ -51,36 +76,12 @@
                     <button class="btn btn-outline-success" value="follow" type="submit" name="follow">
                       Follow @{{profile.user.username|lower}}
                   </button>
-                    
+                  
                     {% endif %}
-
-
-
-                  </form>
-
-
-
-
-
-
-
-
-            
-            
-                
-            
+                  </form>            
             </div>
         </div>
-    </div>
-
-
-    
-
-    
+    </div>    
 {% endif%}
 
-
-
-
-    
 {% endblock content %}
