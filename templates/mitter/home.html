@@ -11,18 +11,26 @@
                 <div class="alert alert-dark" role="alert">
                     {{meep.body}}
                     <hr>
-                    <strong>{{meep.created_at|timesince}}&nbsp;ago</strong>
+                    <small class="text-muted">
+                    <strong>{{meep.created_at|timesince}}&nbsp;ago by @{{meep.user.username}}</strong>
+
+                    </small>
                 </div>
-                <br><br>
+                <br>
                 {% endfor %}
         </div>
         <div class="col-4">
             <br><br><br>
+
+        {% if form %}
             <form method="POST">
                 {% csrf_token %}
 
+                {{form.as_p}}
+
                 <button type="submit" class="btn btn-primary">Submit</button>
             </form>
+        {% endif %}
         </div>
 
     </div>
