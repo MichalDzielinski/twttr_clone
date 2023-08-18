@@ -11,32 +11,22 @@
                 <h1>{{profile.user.username}}'s Profile</h1>
                 <br><br>
                 {% if meeps %}
-                {% for meep in meeps %}
-                    <div class="alert alert-dark" role="alert">
-                      {{meep.body}}
-                      <hr>
-                      <small class="text-muted">
-                      <strong>{{meep.created_at|timesince}}&nbsp;ago by @{{meep.user.username}}</strong>
-  
-                      </small>
-                    </div>
+                  {% for meep in meeps %}
+                      <div class="alert alert-dark" role="alert">
+                        {{meep.body}}
+                        <hr>
+                        <small class="text-muted">
+                        <strong>{{meep.created_at|timesince}}&nbsp;ago by @{{meep.user.username}}</strong>
+    
+                        </small>
+                      </div>
 
-                    <br>
-                {% endfor %}
+                      <br>
+                  {% endfor %}
 
                 {% else %}
-
-                <h2 style="color: pink">
-                Unfortunatelly there are no MEEPS yet!
-
-                </h2>
-
-                {% endif%}
-
-
-
-
-
+                    <h2 style="color: pink">Unfortunatelly there are no MEEPS yet!</h2>
+                {% endif %}
             </div>
             <div class="col-4">
 
@@ -65,26 +55,31 @@
                     </div>
                   </div>
                   <br>
+<!-- #region FOLLOW/UNFOLOW BUTTON -->                  
                   <form method="POST">
                     {% csrf_token %}
 
                     {% if profile in user.profile.follows.all %}
-                    <button class="btn btn-outline-danger" value="unfollow" type="submit" name="follow">
-                        Unfollow @{{profile.user.username|lower}}
-                    </button>
-
-
+                        <button class="btn btn-outline-danger" value="unfollow" type="submit" name="follow">
+                            Unfollow @{{profile.user.username|lower}}
+                        </button>
                     {% else %}
-
-                    <button class="btn btn-outline-success" value="follow" type="submit" name="follow">
-                      Follow @{{profile.user.username|lower}}
-                  </button>
-                  
+                        <button class="btn btn-outline-success" value="follow" type="submit" name="follow">
+                          Follow @{{profile.user.username|lower}}
+                        </button>
                     {% endif %}
-                  </form>            
+                  </form> 
+                  <br>
+<!-- #endregion FOLLOW/UNFOLOW BUTTON -->
+
+<!-- #region UPDATE PROFILE LINK/BUTTON -->
+                {% if request.user.id == profile.user.id %}
+                  <a href="{% url 'update_user' %}" class="btn btn-outline-secondary">Update Profile</a>
+                {% endif %}
+<!-- #endregion UPDATE PROFILE LINK/BUTTON -->
             </div>
         </div>
     </div>    
-{% endif%}
+{% endif %}
 
 {% endblock content %}

@@ -1,11 +1,12 @@
 from django.shortcuts import render, redirect
 from .models import Profile, Meep
 from django.contrib import messages
-from .forms import MeepForm, SignUpForm
+from .forms import MeepForm, SignUpForm, UserUpdateForm
 from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.forms import UserCreationForm
 from django import forms
+from django.contrib.auth.models import User
 
 def home(request):
     if request.user.is_authenticated:
@@ -93,7 +94,69 @@ def register(request):
             return redirect('home')
     return render(request, 'mitter/register.html', {'form': form})
 
+# def update_user(request):
+#     if request.user.is_authenticated:
+#         user = User.objects.get(id=request.user.id)
+#         form = SignUpForm(request.POST or None, instance=user)
+#         if form.is_valid():
+#             form.save()
+#                 # login(request, user)
+#                 # messages.success(request, ('Your profile has been updated successfully!'))
+#             return redirect('home')
+        
+        
+                
+#         else:
+#             context = {
+#                 'form': form,
+#             }
+#             return render(request, 'mitter/update_user.html', context)
+    
+#     else:
+#         messages.success(request, ('You must be logged in to see this page'))
+#         return redirect('home')
 
+
+def update_user(request):
+    if request.user.is_authenticated:
+
+        current_user  = User.objects.get(id=request.user.id)
+        form = UserUpdateForm(request.POST or None, instance=current_user)
+        if form.is_valid():
+            current_user = form.save()
+            login(request, current_user)
+            messages.success(request, ('Your profile has been updated successfully!'))
+            return redirect('home')
+
+        context = {
+            'form': form,
+        }
+        return render(request, 'mitter/update_user.html', context)
+    
+    else:
+        messages.success(request, ('You must be logged in to see this page'))
+        return redirect('home')
+
+# def update_user(request):
+#     if request.user.is_authenticated:
+
+#         current_user  = User.objects.get(id=request.user.id)
+#         form2 = SignUpForm(request.POST or None, instance=current_user)
+#         if form2.is_valid():
+#             current_user = form2.save()
+#             login(request, current_user)
+#             messages.success(request, ('Your profile has been updated successfully!'))
+#             return redirect('home')
+
+#         context = {
+#             'form2': form2,
+#         }
+#         return render(request, 'mitter/update_user.html', context)
+    
+#     else:
+#         messages.success(request, ('You must be logged in to see this page'))
+#         return redirect('home')
+    
 
 
 
