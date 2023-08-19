@@ -50,7 +50,7 @@
                       </a>
                           </div>
 
-                        </div>
+                        </div>e
                       </div>
                         
                       </div>
@@ -73,6 +73,38 @@
                 <br><br>
               {% endif %}
 <!-- #endregion PROFILE IMAGE -->
+
+
+<!-- #region USER INFO -->
+
+{% if profile.homepage_link %}
+              <a href="{{profile.homepage_link}}" target="new"><i class="fas fa-home fa-2x"></i></a>
+{% endif %}
+&nbsp;
+{% if profile.facebook_link %}
+    <a href="{{profile.facebook_link}}" target="new"><i class="fab fa-facebook fa-2x"></i></a>          
+{% endif %}
+&nbsp;
+{% if profile.instagram_link %}
+              <a href="{{profile.instagram_link}}" target="new"><i class="fab fa-instagram fa-2x"></i></a>
+{% endif %}
+&nbsp;
+{% if profile.github_link %}
+              <a href="{{profile.github_link}}" target="new"><i class="fab fa-github fa-2x"></i></a>
+{% endif %}
+&nbsp;
+{% if profile.linkedin_link %}
+              <a href="{{profile.linkedin_link}}" target="new"><i class="fab fa-linkedin fa-2x"></i></a>
+              
+{% endif %}
+<br><br>
+{% if profile.profile_bio %}
+              {{profile.profile_bio}}
+{% endif %}
+<br><br>
+
+
+<!-- #endregion USER INFO -->
 
 <!-- #region FOLLOWS LIST -->
                 <div class="card">
