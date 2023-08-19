@@ -38,15 +38,16 @@
                         {{meep.number_of_likes }} Likes 
 
                         {% if user in meep.likes.all %}
-                    <a href="{% url 'meep_like' meep.id %}">
-                        <i class="fas fa-heart" style="color: darkred"></i>    
-                    </a>
+                    <a href="{% url 'meep_like' meep.id %}"><i class="fas fa-heart" style="color: darkred"></i></a>
                     {% else %}
-                    <a href="{% url 'meep_like' meep.id %}">
-                        <i class="far fa-heart" ></i>
-                    </a>
+                    <a href="{% url 'meep_like' meep.id %}"><i class="far fa-heart" ></i></a>
                     {% endif %}
                         </small>
+                        &nbsp;
+                      <a href="{% url 'meep_show' meep.id %}"></a>
+                        <i class="far fa-share-square" style="color:black"></i>
+
+                      </a>
                           </div>
 
                         </div>
@@ -63,7 +64,6 @@
             </div>
  <!-- #endregion BASE PART -->
 
- 
 <!-- #region SIDEBAR             -->
             <div class="col-4">
               <br><br>
