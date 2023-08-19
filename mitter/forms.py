@@ -20,7 +20,7 @@ class MeepForm(forms.ModelForm):
                            ), label='',)
     class Meta:
         model = Meep
-        exclude = ('user', )
+        exclude = ('user', 'likes' )
  
 class SignUpForm(UserCreationForm):
     email = forms.EmailField(label='', widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': "Email Address"}))

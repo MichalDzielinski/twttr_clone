@@ -7,6 +7,11 @@ class Meep(models.Model):
     user = models.ForeignKey(User, related_name='meeps', on_delete=models.DO_NOTHING)
     body = models.CharField(max_length=200)
     created_at = models.DateTimeField(auto_now_add=True)
+    likes = models.ManyToManyField(User, related_name='meep_like', blank=True)
+
+    def number_of_likes(self):
+        return self.likes.count()
+
 
     def __str__(self):
         return(
@@ -20,6 +25,8 @@ class Profile(models.Model):
     follows = models.ManyToManyField('self', related_name='followed_by', symmetrical=False, blank=True)
     date_modified = models.DateTimeField(User, auto_now=True)
     profile_image = models.ImageField(null=True, blank=True, upload_to='images/')
+
+    
 
 
     def __str__(self):

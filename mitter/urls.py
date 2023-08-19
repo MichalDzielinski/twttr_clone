@@ -11,5 +11,7 @@ urlpatterns = [
     path('register/', views.register, name='register'),
     path('register/', views.register, name='register'),
     path('update_user/', views.update_user, name='update_user'),
+    path('meep_like/<int:pk>', views.meep_like, name='meep_like'),
+
 
 ]
