@@ -87,7 +87,13 @@ USE_I18N = True
 USE_TZ = True
 #endregion LANGUAGE AND TIME
 
+
+#region STATIC FILES AND MEDIA
 STATIC_URL = 'static/'
 STATICFILES_DIRS = [BASE_DIR / 'static']
+
+MEDIA_URL = 'media/'
+MEDIA_ROOT = BASE_DIR/ 'media'
+#endregion STATIC FILES AND MEDIA
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
