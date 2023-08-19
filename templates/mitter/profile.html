@@ -1,24 +1,47 @@
 {% extends 'mitter/base.html' %}
+{% load static %}
 
 {% block content %}
-
 
 {% if profile %}
 
     <div class="container text-center">
         <div class="row">
-            <div class="col-8">
+ 
+ <!-- #region BASE PART -->
+          <div class="col-8">
                 <h1>{{profile.user.username}}'s Profile</h1>
                 <br><br>
                 {% if meeps %}
                   {% for meep in meeps %}
                       <div class="alert alert-dark" role="alert">
-                        {{meep.body}}
+                        <div class="container">
+                        <div class="row">
+                          <div class="col-2">
+                            {% if profile.profile_image %}
+                            <img src="{{profile.profile_image.url}}" alt=""
+                            width=80 height=80 class="rounded-circle"
+                            >
+                            {% else %}
+
+                            <img src="{% static 'images/blank.jpg' %}" alt=""
+                            width=80 height=80 class="rounded-circle"
+                            >
+                            
+                            {% endif  %}
+                          </div>
+                          <div class="col-9">
+                            {{meep.body}}
                         <hr>
                         <small class="text-muted">
                         <strong>{{meep.created_at|timesince}}&nbsp;ago by @{{meep.user.username}}</strong>
     
                         </small>
+                          </div>
+
+                        </div>
+                      </div>
+                        
                       </div>
 
                       <br>
@@ -28,14 +51,20 @@
                     <h2 style="color: pink">Unfortunatelly there are no MEEPS yet!</h2>
                 {% endif %}
             </div>
+ <!-- #endregion BASE PART -->
+
+ 
+<!-- #region SIDEBAR             -->
             <div class="col-4">
               <br><br>
+<!-- #region PROFILE IMAGE -->
               {% if profile.profile_image %}
-                <img src="{{profile.profile_image.url}}" alt="User image" style="width: 95%; height: auto; max-height: 222px;">
+                <img src="{{profile.profile_image.url}}" alt="User image" class="rouded-circle" style="width: 95%; height: auto; max-height: 222px;">
                 <br><br>
-              
               {% endif %}
+<!-- #endregion PROFILE IMAGE -->
 
+<!-- #region FOLLOWS LIST -->
                 <div class="card">
                     <h5 class="card-header">Follows</h5>
                     <div class="card-body">
@@ -47,6 +76,9 @@
                       </p>
                     </div>
                   </div>
+<!-- #endregion FOLLOWS LIST -->
+
+<!-- #region FOLLOWED_BY -->
                   <br>
                   <div class="card">
                     <h5 class="card-header">Followed By</h5>
@@ -61,6 +93,8 @@
                     </div>
                   </div>
                   <br>
+<!-- #endregion FOLLOWED_BY -->
+
 <!-- #region FOLLOW/UNFOLOW BUTTON -->                  
                   <form method="POST">
                     {% csrf_token %}
@@ -84,8 +118,11 @@
                 {% endif %}
 <!-- #endregion UPDATE PROFILE LINK/BUTTON -->
             </div>
+<!-- #endregion SIDEBAR             -->
         </div>
     </div>    
+
+
 {% endif %}
 
 {% endblock content %}
