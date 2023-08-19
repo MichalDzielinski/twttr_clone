@@ -1,4 +1,5 @@
 {% extends 'mitter/base.html' %}
+{% load static %}
 
 {% block content %}
 
@@ -9,12 +10,36 @@
 
                 {% for meep in meeps %}
                 <div class="alert alert-dark" role="alert">
-                    {{meep.body}}
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-2">
+                                {% if meep.user.profile.profile_image %}
+                            <img src="{{meep.user.profile.profile_image.url}}" alt=""
+                            width=80 height=80 class="rounded-circle"
+                            >
+                            {% else %}
+
+                            <img src="{% static 'images/blank.jpg' %}" alt=""
+                            width=80 height=80 class="rounded-circle"
+                            >
+                            
+                            {% endif  %}
+                            </div>
+                            <div class="col-10">
+                                {{meep.body}}
                     <hr>
                     <small class="text-muted">
                     <strong>{{meep.created_at|timesince}}&nbsp;ago by @{{meep.user.username}}</strong>
 
                     </small>
+
+
+                            </div>
+                        </div>
+                    </div>
+
+                    
+                    
                 </div>
                 <br>
                 {% endfor %}
