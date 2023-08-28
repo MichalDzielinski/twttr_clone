@@ -141,3 +141,24 @@ def meep_show(request, pk):
     context = {}
     return render(request, '', context)
 
+def unfollow(request, pk):
+    if request.user.is_authenticated:
+        profile = Profile.objects.get(user_id=pk)
+        request.user.profile.follows.remove(profile)
+        request.user.profile.save()
+        messages.success(request, (f'You have successfully unfollow {profile.user.username}'))
+        return redirect(request.META.get('HTTP_REFERER'))
+
+    else:
+        messages.success(request, ('You have to be logged in to do this!'))
+        return redirect('home')
+
+
+
+
+
+
+
+
+
+
