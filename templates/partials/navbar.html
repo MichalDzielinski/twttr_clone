@@ -1,3 +1,4 @@
+{% load static %}
 <nav class="navbar navbar-expand-lg  navbar-dark bg-dark mb-5">
     <div class="container-fluid">
       <a class="navbar-brand" href="{% url 'home' %}">Twitter Ripoff</a>
@@ -32,10 +33,26 @@
           
           </li>
         </ul>
-        <form class="d-flex" role="search">
+
+        {% if user.is_authenticated %}
+        <ul class="navbar-nav ml-auto">
+          <li class="nav-link navbar-brand">
+            <a href="{% url 'profile' request.user.id %}">
+              {% if user.profile.profile_image %}
+              <img src="{{user.profile.profile_image.url}}" alt="" width=30 height=30 class="rounded-circle">
+              {% else %}
+              <img src="{% static 'images/blank.jpg' %}" alt="" width=30 height=30 class="rounded-circle">
+              {% endif %}
+            </a>
+          </li>
+        </ul>
+        {% endif %}
+
+
+        <!-- <form class="d-flex" role="search">
           <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
           <button class="btn btn-outline-success" type="submit">Search</button>
-        </form>
+        </form> -->
       </div>
     </div>
   </nav>
