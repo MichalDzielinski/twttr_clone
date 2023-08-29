@@ -71,7 +71,6 @@ def followers(request, pk):
         messages.success(request, ('You must be logged-in to see this page'))
         return redirect('home')
     
-
 def follows(request, pk):
     if request.user.is_authenticated:
         if request.user.id == pk:
@@ -86,9 +85,6 @@ def follows(request, pk):
     else:
         messages.success(request, ('You must be logged-in to see this page'))
         return redirect('home')
-
-
-
 
 def login_user(request):
     if request.method == 'POST':
@@ -197,6 +193,24 @@ def unfollow(request, pk):
     else:
         messages.success(request, ('You have to be logged in to do this!'))
         return redirect('home')
+
+def delete_meep(request, pk):
+    if request.user.is_authenticated:
+        meep = get_object_or_404(Meep, id=pk)
+
+        if request.user.username == meep.user.username:
+            meep.delete()
+            messages.success(request, "The meep has been deleted!")
+            return redirect(request.META.get('HTTP_REFERER'))
+        else:
+            messages.success(request, "Please Log-In to continue!")
+            return redirect('home')
+
+    else:
+        messages.success(request, "Please Log-In to continue!")
+        return redirect(request.META.get('HTTP_REFERER'))
+        
+
 
 
 
