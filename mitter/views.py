@@ -234,8 +234,15 @@ def edit_meep(request, pk):
         messages.success(request, "Please Log-In to continue!")
         return redirect('home')
         
-
-
+def search(request):
+    if request.method == 'POST':
+        search = request.POST['search']
+        searched = Meep.objects.filter(body__contains = search)
+    
+        return render(request, 'mitter/search.html', {'search': search, 'searched':searched})
+    else:
+        return render(request, 'mitter/search.html', {})
+         
 
 
 

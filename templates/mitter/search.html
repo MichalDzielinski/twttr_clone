@@ -1,0 +1,75 @@
+{% extends 'mitter/base.html' %}
+{% load static %}
+
+{% block content %}
+<h1>Search Meeps!</h1>
+<br>
+
+
+<form method="POST">
+    {% csrf_token %}
+    <input type="text" class="form-control mb-2" placeholder="Search meeps" name="search">
+    <button type="submit" class="btn btn-secondary">Search</button>
+</form>
+    
+<br><br>
+
+{% if search %}
+Your Searched for: {{ search }}
+<br>
+{% for meep in searched  %}
+
+                <div class="alert alert-dark" role="alert">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-2">
+                                {% if meep.user.profile.profile_image %}
+                            <img src="{{meep.user.profile.profile_image.url}}" alt=""
+                            width=80 height=80 class="rounded-circle"
+                            >
+                            {% else %}
+
+                            <img src="{% static 'images/blank.jpg' %}" alt=""
+                            width=80 height=80 class="rounded-circle"
+                            >
+                            
+                            {% endif  %}
+                            </div>
+                            <div class="col-10">
+                                {{meep.body}}
+                    <hr>
+                    <small class="text-muted">
+                    <strong>{{meep.created_at|timesince}}&nbsp;ago by @{{meep.user.username}}</strong>
+                    - {{meep.number_of_likes }} Likes - 
+                    
+                    {% if user in meep.likes.all %}
+                    <a href="{% url 'meep_like' meep.id %}"><i class="fas fa-heart" style="color: darkred"></i></a>
+                    {% else %}
+                    <a href="{% url 'meep_like' meep.id %}"><i class="far fa-heart" ></i></a>
+                    {% endif %}
+                    </small>
+                    &nbsp;
+                    <a href="{% url 'meep_show' meep.id %}">
+                        <i class="far fa-share-square" style="color:black"></i>
+
+                    </a>
+
+                    
+
+
+                            </div>
+                        </div>
+                    </div>
+
+                    
+                    
+                </div>
+                <br>
+                
+
+{% endfor %}
+{% endif %}
+
+
+
+{% endblock content %}
