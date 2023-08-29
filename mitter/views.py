@@ -72,6 +72,21 @@ def followers(request, pk):
         return redirect('home')
     
 
+def follows(request, pk):
+    if request.user.is_authenticated:
+        if request.user.id == pk:
+
+            profiles = Profile.objects.get(user_id=pk)
+            context  ={'profiles': profiles}
+            return render(request, 'mitter/follows.html', context)
+        else:
+            messages.success(request, ('Thats not your profile page'))
+            return redirect('home')
+
+    else:
+        messages.success(request, ('You must be logged-in to see this page'))
+        return redirect('home')
+
 
 
 

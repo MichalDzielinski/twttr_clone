@@ -122,6 +122,9 @@
                         {% endfor %}
                       </p>
                     </div>
+                    <div class="card-footer">
+                      <a href="{% url 'follows' profile.user.id %}" class="btn btn-sm btn-outline-secondary">See all...</a>
+                    </div>
                   </div>
 <!-- #endregion FOLLOWS LIST -->
 
@@ -143,19 +146,13 @@
                               <i class="fas fa-user-plus small" style="color:gray"></i>
                             </a>
                             {% endif %}
-
-
-
-
                             <br>
                         {% endfor %}
-                        
                         <br>
-                        
                       </p>
                     </div>
                     <div class="card-footer">
-                      <a href="{% url 'followers' profile.user.id %}">See all...</a>
+                      <a href="{% url 'followers' profile.user.id %}" class="btn btn-sm btn-outline-secondary">See all...</a>
                     </div>
                   </div>
                   <br>
