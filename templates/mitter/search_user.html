@@ -1,0 +1,63 @@
+{% extends 'mitter/base.html' %}
+{% load static %}
+
+{% block content %}
+<h1>Search Users!</h1>
+<br>
+
+
+<form method="POST">
+    {% csrf_token %}
+    <input type="text" class="form-control mb-2" placeholder="Search meeps" name="search">
+    <button type="submit" class="btn btn-secondary">Search Users</button>
+</form>
+    
+<br><br>
+
+{% if search %}
+Your Searched for: {{ search }}
+<br>
+
+{% endif %}
+
+{% if searched %}
+    {% for r in searched %}
+
+    <div class="card mb-3" style="max-width: 540px;">
+        <div class="row g-0">
+          <div class="col-md-4">
+
+            {% if r.profile.profile_image %}
+              <img src="{{r.profile.profile_image.url}}" width=200 height=200 class="img-fluid rounded-start">
+            {% else %}
+              <img src="{% static 'images/blank.jpg' %}" class="img-fluid rounded-start" alt="...">
+
+            
+            {% endif%}
+          </div>
+          <div class="col-md-8">
+            <div class="card-body">
+              <h5 class="card-title">{{r.profile.user.username}}</h5>
+              <p class="card-text">
+                <a href="{% url 'profile' r.profile.user.id %}">
+                @{{r.profile.user.username|lower}}</a></p>
+              <br><br>
+              <p class="card-text"><small class="text-muted">Last Updated: {{r.profile.date_modified|timesince}}</small></p>
+            </div>
+          </div>
+        </div>
+      </div>
+    <br><br>
+
+
+        
+    {% endfor %}
+
+{% else %}
+
+Sorry, No usernames containing {{search}} exist.
+{% endif %}
+
+<br><br>
+
+{% endblock content %}
