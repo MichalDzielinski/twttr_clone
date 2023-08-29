@@ -49,8 +49,10 @@
                       </a>
                       {% if request.user.username == profile.user.username %}
                       &nbsp;&nbsp;
-                      <a href="{% url 'delete_meep' meep.id %}">
-                        <i class="fas fa-trash-alt" style="color:black"></i>
+                      <a href="{% url 'delete_meep' meep.id %}"><i class="fas fa-trash-alt" style="color:black"></i></a>&nbsp;&nbsp;
+
+                      <a href="{% url 'edit_meep' meep.id %}">
+                        <i class="fas fa-edit" style="color:black"></i>
                       </a>
                       {% endif %}
                           </div>
